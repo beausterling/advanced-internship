@@ -5,6 +5,7 @@ import Link from "next/link";
 import loginImage from "@/assets/login.png";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
+import Skeleton from "@/components/Skeleton";
 
 export default function Settings() {
   const user = useAppSelector((state) => state.user);
@@ -14,7 +15,20 @@ export default function Settings() {
     <div className="container">
       <div className="row">
         <div className="section__title page__title">Settings</div>
-        {!user.uid && (
+        {user.isLoading && (
+          <>
+            <Skeleton width="200px" height="24px" className="skeleton__line" />
+            <Skeleton width="100px" height="20px" className="skeleton__line" />
+            <Skeleton
+              width="180px"
+              height="40px"
+              className="settings__skeleton--gap"
+            />
+            <Skeleton width="80px" height="24px" className="skeleton__line" />
+            <Skeleton width="240px" height="20px" />
+          </>
+        )}
+        {!user.isLoading && !user.uid && (
           <div className="settings__login--wrapper">
             <Image src={loginImage} alt="login" />
             <div className="settings__login--text">

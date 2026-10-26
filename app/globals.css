@@ -1764,3 +1764,7 @@ input {
   width: fit-content;
   padding: 0 24px;
 }
+
+.settings__skeleton--gap {
+  margin-bottom: 56px;
+}
