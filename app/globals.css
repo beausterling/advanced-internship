@@ -795,3 +795,7 @@ input {
 .sidebar__link--text {
   font-size: 16px;
 }
+
+.sidebar__link--line--active {
+  background-color: #2bd97c;
+}

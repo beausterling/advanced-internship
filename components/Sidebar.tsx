@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AiOutlineHome, AiOutlineSearch } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { RiBallPenLine } from "react-icons/ri";
@@ -9,6 +10,8 @@ import { FiHelpCircle, FiLogIn, FiSettings } from "react-icons/fi";
 import logo from "@/assets/logo.png";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
@@ -17,7 +20,11 @@ export default function Sidebar() {
       <div className="sidebar__wrapper">
         <div className="sidebar__top">
           <Link href="/for-you" className="sidebar__link--wrapper">
-            <div className="sidebar__link--line"></div>
+            <div
+              className={`sidebar__link--line ${
+                pathname === "/for-you" ? "sidebar__link--line--active" : ""
+              }`}
+            ></div>
             <div className="sidebar__icon--wrapper">
               <AiOutlineHome />
             </div>
@@ -47,7 +54,11 @@ export default function Sidebar() {
         </div>
         <div className="sidebar__bottom">
           <Link href="/settings" className="sidebar__link--wrapper">
-            <div className="sidebar__link--line"></div>
+            <div
+              className={`sidebar__link--line ${
+                pathname === "/settings" ? "sidebar__link--line--active" : ""
+              }`}
+            ></div>
             <div className="sidebar__icon--wrapper">
               <FiSettings />
             </div>
