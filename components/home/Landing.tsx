@@ -1,12 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import landing from "@/assets/landing.png";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
 
 export default function Landing() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const user = useAppSelector((state) => state.user);
+
+  function handleLogin() {
+    if (user.uid) {
+      router.push("/for-you");
+    } else {
+      dispatch(openModal());
+    }
+  }
 
   return (
     <section id="landing">
@@ -27,7 +38,7 @@ export default function Landing() {
               </div>
               <button
                 className="btn home__cta--btn"
-                onClick={() => dispatch(openModal())}
+                onClick={handleLogin}
               >
                 Login
               </button>
