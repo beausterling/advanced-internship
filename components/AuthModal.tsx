@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import googleIcon from "@/assets/google.png";
+import { auth } from "@/firebase/init";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { closeModal } from "@/redux/modalSlice";
 
@@ -13,6 +15,19 @@ export default function AuthModal() {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function login(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      dispatch(closeModal());
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
 
   if (!isOpen) return null;
 
@@ -39,7 +54,7 @@ export default function AuthModal() {
           <div className="auth__separator">
             <span className="auth__separator--text">or</span>
           </div>
-          <form className="auth__main--form">
+          <form className="auth__main--form" onSubmit={login}>
             <input
               className="auth__main--input"
               type="text"
@@ -54,7 +69,7 @@ export default function AuthModal() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" disabled={loading}>
               Login
             </button>
           </form>
