@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import loginImage from "@/assets/login.png";
 import { Book } from "@/types/book";
@@ -15,6 +15,7 @@ export default function PlayerPage() {
   const [book, setBook] = useState<Book | null>(null);
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     async function getBook() {
@@ -26,6 +27,17 @@ export default function PlayerPage() {
     }
     getBook();
   }, [id]);
+
+  useEffect(() => {
+    if (
+      book?.subscriptionRequired &&
+      user.uid &&
+      !user.isLoading &&
+      user.plan === "basic"
+    ) {
+      router.push("/choose-plan");
+    }
+  }, [book, user, router]);
 
   if (!book || user.isLoading) {
     return (
