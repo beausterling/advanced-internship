@@ -1687,3 +1687,44 @@ input {
   color: #6b757b;
   text-align: center;
 }
+
+.faq__wrapper {
+  margin-top: 56px;
+}
+
+.accordion__card {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 8px;
+}
+
+.accordion__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 24px 0;
+  cursor: pointer;
+}
+
+.accordion__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #032b41;
+}
+
+.accordion__icon {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  transition: transform 300ms;
+}
+
+.accordion__icon--rotate {
+  transform: rotate(180deg);
+}
+
+.accordion__body {
+  padding-bottom: 24px;
+  color: #394547;
+  line-height: 1.5;
+}

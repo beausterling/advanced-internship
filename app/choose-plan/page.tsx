@@ -6,6 +6,7 @@ import { AiFillFileText } from "react-icons/ai";
 import { FaHandshake } from "react-icons/fa";
 import { RiPlantFill } from "react-icons/ri";
 import pricingTop from "@/assets/pricing-top.png";
+import Accordion from "@/components/Accordion";
 
 export default function ChoosePlan() {
   const [selectedPlan, setSelectedPlan] = useState<"yearly" | "monthly">(
@@ -105,6 +106,7 @@ export default function ChoosePlan() {
                 : "30-day money back guarantee, no questions asked."}
             </div>
           </div>
+          <Accordion />
         </div>
       </div>
     </div>
