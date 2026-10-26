@@ -1728,3 +1728,10 @@ input {
   color: #394547;
   line-height: 1.5;
 }
+
+/* SETTINGS */
+.section__title.page__title {
+  text-align: left;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e1e7ea;
+}
