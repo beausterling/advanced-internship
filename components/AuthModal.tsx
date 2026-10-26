@@ -6,12 +6,34 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import googleIcon from "@/assets/google.png";
 import { auth } from "@/firebase/init";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { closeModal } from "@/redux/modalSlice";
+
+function getErrorMessage(error: unknown) {
+  const code = error instanceof FirebaseError ? error.code : "";
+  switch (code) {
+    case "auth/invalid-email":
+      return "Invalid email";
+    case "auth/missing-password":
+      return "Please enter a password";
+    case "auth/weak-password":
+      return "Password should be at least 6 characters";
+    case "auth/email-already-in-use":
+      return "Email is already in use";
+    case "auth/user-not-found":
+      return "User not found";
+    case "auth/invalid-credential":
+    case "auth/wrong-password":
+      return "Incorrect email or password";
+    default:
+      return "Something went wrong, please try again";
+  }
+}
 
 export default function AuthModal() {
   const isOpen = useAppSelector((state) => state.modal.isOpen);
@@ -20,10 +42,12 @@ export default function AuthModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
       if (isSignUp) {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -32,7 +56,7 @@ export default function AuthModal() {
       }
       dispatch(closeModal());
     } catch (error) {
-      console.log(error);
+      setError(getErrorMessage(error));
     }
     setLoading(false);
   }
@@ -69,6 +93,7 @@ export default function AuthModal() {
             <span className="auth__separator--text">or</span>
           </div>
           <form className="auth__main--form" onSubmit={handleSubmit}>
+            {error && <div className="auth__error">{error}</div>}
             <input
               className="auth__main--input"
               type="text"
@@ -90,7 +115,10 @@ export default function AuthModal() {
         </div>
         <button
           className="auth__switch--btn"
-          onClick={() => setIsSignUp(!isSignUp)}
+          onClick={() => {
+            setIsSignUp(!isSignUp);
+            setError("");
+          }}
         >
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
         </button>
