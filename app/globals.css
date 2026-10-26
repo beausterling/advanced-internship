@@ -950,3 +950,61 @@ input {
     opacity: 1;
   }
 }
+
+/* MOBILE SIDEBAR */
+.sidebar__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3a4649;
+  opacity: 0.65;
+  z-index: 999;
+  transition: opacity 300ms;
+}
+
+.sidebar__overlay--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar__toggle--btn {
+  display: none;
+  cursor: pointer;
+}
+
+.sidebar__toggle--btn svg {
+  width: 24px;
+  height: 24px;
+  color: #032b41;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar--opened {
+    transform: translateX(0);
+  }
+
+  .sidebar__toggle--btn {
+    display: flex;
+  }
+
+  .search__wrapper {
+    padding: 0 24px;
+  }
+
+  .search__books--wrapper {
+    top: 88px;
+    right: 0;
+    max-width: none;
+  }
+}

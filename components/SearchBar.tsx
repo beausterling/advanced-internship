@@ -3,10 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { Book } from "@/types/book";
 
-export default function SearchBar() {
+export default function SearchBar({
+  onMenuClick,
+}: {
+  onMenuClick: () => void;
+}) {
   const [search, setSearch] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +21,7 @@ export default function SearchBar() {
 
     const timer = setTimeout(async () => {
       const res = await fetch(
-        `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(search)}`
+        `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(search)}`,
       );
       const data = await res.json();
       setBooks(data);
@@ -60,13 +64,21 @@ export default function SearchBar() {
               </div>
             </div>
           </div>
+          <div className="sidebar__toggle--btn" onClick={onMenuClick}>
+            <AiOutlineMenu />
+          </div>
         </div>
         {search && (
           <div className="search__books--wrapper">
             {loading ? (
-              new Array(4).fill(0).map((_, index) => (
-                <div className="search__book--skeleton skeleton" key={index}></div>
-              ))
+              new Array(4)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    className="search__book--skeleton skeleton"
+                    key={index}
+                  ></div>
+                ))
             ) : books.length === 0 ? (
               <div className="search__empty">No books found</div>
             ) : (
