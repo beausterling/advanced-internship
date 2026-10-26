@@ -12,6 +12,7 @@ const API_URL = "https://us-central1-summaristt.cloudfunctions.net/getBooks";
 export default function ForYou() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
+  const [suggestedBooks, setSuggestedBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     async function getBooks() {
@@ -21,6 +22,9 @@ export default function ForYou() {
 
       const recommendedRes = await fetch(`${API_URL}?status=recommended`);
       setRecommendedBooks(await recommendedRes.json());
+
+      const suggestedRes = await fetch(`${API_URL}?status=suggested`);
+      setSuggestedBooks(await suggestedRes.json());
     }
     getBooks();
   }, []);
@@ -65,6 +69,13 @@ export default function ForYou() {
         <div className="for-you__sub--title">We think you&apos;ll like these</div>
         <div className="for-you__books">
           {recommendedBooks.map((book) => (
+            <BookCard book={book} key={book.id} />
+          ))}
+        </div>
+        <div className="for-you__title">Suggested Books</div>
+        <div className="for-you__sub--title">Browse those books</div>
+        <div className="for-you__books">
+          {suggestedBooks.map((book) => (
             <BookCard book={book} key={book.id} />
           ))}
         </div>
