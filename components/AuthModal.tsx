@@ -55,8 +55,24 @@ export default function AuthModal() {
         await signInWithEmailAndPassword(auth, email, password);
       }
       dispatch(closeModal());
-    } catch (error) {
-      setError(getErrorMessage(error));
+    } catch (err) {
+      setError(getErrorMessage(err));
+    }
+    setLoading(false);
+  }
+
+  async function guestLogin() {
+    setLoading(true);
+    setError("");
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        process.env.NEXT_PUBLIC_GUEST_EMAIL as string,
+        process.env.NEXT_PUBLIC_GUEST_PASSWORD as string
+      );
+      dispatch(closeModal());
+    } catch (err) {
+      setError(getErrorMessage(err));
     }
     setLoading(false);
   }
@@ -72,7 +88,11 @@ export default function AuthModal() {
           </div>
           {!isSignUp && (
             <>
-              <button className="btn guest__btn--wrapper">
+              <button
+                className="btn guest__btn--wrapper"
+                onClick={guestLogin}
+                disabled={loading}
+              >
                 <figure className="google__icon--mask guest__icon--mask">
                   <FaUser />
                 </figure>
