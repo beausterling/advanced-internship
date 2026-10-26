@@ -1768,3 +1768,33 @@ input {
 .settings__skeleton--gap {
   margin-bottom: 56px;
 }
+
+/* RESPONSIVE FOR YOU */
+@media (max-width: 1200px) {
+  .selected__book,
+  .selected__book--skeleton {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .selected__book {
+    flex-direction: column;
+  }
+
+  .selected__book--sub-title,
+  .selected__book--content {
+    width: 100%;
+  }
+
+  .selected__book--line {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .selected__book {
+    padding: 16px;
+  }
+}
