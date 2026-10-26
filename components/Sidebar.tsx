@@ -40,7 +40,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       ></div>
       <div
         className={`sidebar ${isOpen ? "sidebar--opened" : ""} ${
-          pathname.startsWith("/player") ? "sidebar--player" : ""
+          pathname.startsWith("/player") && user.uid ? "sidebar--player" : ""
         }`}
       >
         <div className="sidebar__logo">
