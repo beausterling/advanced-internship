@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { Book } from "@/types/book";
 import BookCard from "@/components/BookCard";
+import BookCardSkeleton from "@/components/BookCardSkeleton";
+import Skeleton from "@/components/Skeleton";
 
 const API_URL = "https://us-central1-summaristt.cloudfunctions.net/getBooks";
 
@@ -13,6 +15,7 @@ export default function ForYou() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
   const [suggestedBooks, setSuggestedBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getBooks() {
@@ -25,6 +28,7 @@ export default function ForYou() {
 
       const suggestedRes = await fetch(`${API_URL}?status=suggested`);
       setSuggestedBooks(await suggestedRes.json());
+      setLoading(false);
     }
     getBooks();
   }, []);
@@ -33,51 +37,65 @@ export default function ForYou() {
     <div className="container">
       <div className="row">
         <div className="for-you__title">Selected just for you</div>
-        {selectedBook && (
-          <Link href={`/book/${selectedBook.id}`} className="selected__book">
-            <div className="selected__book--sub-title">
-              {selectedBook.subTitle}
-            </div>
-            <div className="selected__book--line"></div>
-            <div className="selected__book--content">
-              <figure className="selected__book--img-mask">
-                <Image
-                  className="selected__book--img"
-                  src={selectedBook.imageLink}
-                  alt={selectedBook.title}
-                  width={140}
-                  height={140}
-                />
-              </figure>
-              <div className="selected__book--text">
-                <div className="selected__book--title">
-                  {selectedBook.title}
-                </div>
-                <div className="selected__book--author">
-                  {selectedBook.author}
-                </div>
-                <div className="selected__book--duration-wrapper">
-                  <div className="selected__book--icon">
-                    <BsFillPlayFill />
+        {loading ? (
+          <Skeleton height="200px" className="selected__book--skeleton" />
+        ) : (
+          selectedBook && (
+            <Link href={`/book/${selectedBook.id}`} className="selected__book">
+              <div className="selected__book--sub-title">
+                {selectedBook.subTitle}
+              </div>
+              <div className="selected__book--line"></div>
+              <div className="selected__book--content">
+                <figure className="selected__book--img-mask">
+                  <Image
+                    className="selected__book--img"
+                    src={selectedBook.imageLink}
+                    alt={selectedBook.title}
+                    width={140}
+                    height={140}
+                  />
+                </figure>
+                <div className="selected__book--text">
+                  <div className="selected__book--title">
+                    {selectedBook.title}
+                  </div>
+                  <div className="selected__book--author">
+                    {selectedBook.author}
+                  </div>
+                  <div className="selected__book--duration-wrapper">
+                    <div className="selected__book--icon">
+                      <BsFillPlayFill />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          )
         )}
         <div className="for-you__title">Recommended For You</div>
-        <div className="for-you__sub--title">We think you&apos;ll like these</div>
+        <div className="for-you__sub--title">
+          We think you&apos;ll like these
+        </div>
         <div className="for-you__books">
-          {recommendedBooks.map((book) => (
-            <BookCard book={book} key={book.id} />
-          ))}
+          {loading
+            ? new Array(5)
+                .fill(0)
+                .map((_, index) => <BookCardSkeleton key={index} />)
+            : recommendedBooks.map((book) => (
+                <BookCard book={book} key={book.id} />
+              ))}
         </div>
         <div className="for-you__title">Suggested Books</div>
         <div className="for-you__sub--title">Browse those books</div>
         <div className="for-you__books">
-          {suggestedBooks.map((book) => (
-            <BookCard book={book} key={book.id} />
-          ))}
+          {loading
+            ? new Array(5)
+                .fill(0)
+                .map((_, index) => <BookCardSkeleton key={index} />)
+            : suggestedBooks.map((book) => (
+                <BookCard book={book} key={book.id} />
+              ))}
         </div>
       </div>
     </div>

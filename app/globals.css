@@ -1190,3 +1190,12 @@ input {
   font-size: 10px;
   border-radius: 20px;
 }
+
+.skeleton__line {
+  margin-bottom: 8px;
+}
+
+.selected__book--skeleton {
+  max-width: calc(100% / 3 * 2);
+  margin-bottom: 24px;
+}
