@@ -1,12 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import logo from "@/assets/logo.png";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
 
 export default function Nav() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const user = useAppSelector((state) => state.user);
+
+  function handleLogin() {
+    if (user.uid) {
+      router.push("/for-you");
+    } else {
+      dispatch(openModal());
+    }
+  }
 
   return (
     <nav className="nav">
@@ -17,7 +28,7 @@ export default function Nav() {
         <ul className="nav__list--wrapper">
           <li
             className="nav__list nav__list--login"
-            onClick={() => dispatch(openModal())}
+            onClick={handleLogin}
           >
             Login
           </li>

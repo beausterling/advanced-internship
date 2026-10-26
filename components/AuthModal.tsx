@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -42,11 +43,20 @@ function getErrorMessage(error: unknown) {
 export default function AuthModal() {
   const isOpen = useAppSelector((state) => state.modal.isOpen);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  function onSuccess() {
+    dispatch(closeModal());
+    if (pathname === "/") {
+      router.push("/for-you");
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -58,7 +68,7 @@ export default function AuthModal() {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-      dispatch(closeModal());
+      onSuccess();
     } catch (err) {
       setError(getErrorMessage(err));
     }
@@ -74,7 +84,7 @@ export default function AuthModal() {
         process.env.NEXT_PUBLIC_GUEST_EMAIL as string,
         process.env.NEXT_PUBLIC_GUEST_PASSWORD as string
       );
-      dispatch(closeModal());
+      onSuccess();
     } catch (err) {
       setError(getErrorMessage(err));
     }
@@ -85,7 +95,7 @@ export default function AuthModal() {
     setError("");
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-      dispatch(closeModal());
+      onSuccess();
     } catch (err) {
       setError(getErrorMessage(err));
     }
