@@ -1,3 +1,11 @@
+import Nav from "@/components/home/Nav";
+import Landing from "@/components/home/Landing";
+
 export default function Home() {
-  return <h1>Summarist</h1>;
+  return (
+    <>
+      <Nav />
+      <Landing />
+    </>
+  );
 }
