@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { Book } from "@/types/book";
 import BookCard from "@/components/BookCard";
+import BookDuration from "@/components/BookDuration";
 import BookCardSkeleton from "@/components/BookCardSkeleton";
 import Skeleton from "@/components/Skeleton";
 
@@ -66,6 +67,9 @@ export default function ForYou() {
                   <div className="selected__book--duration-wrapper">
                     <div className="selected__book--icon">
                       <BsFillPlayFill />
+                    </div>
+                    <div className="selected__book--duration">
+                      <BookDuration audioLink={selectedBook.audioLink} long />
                     </div>
                   </div>
                 </div>

@@ -1510,3 +1510,12 @@ input {
   cursor: pointer;
   accent-color: #2bd97c;
 }
+
+.search__book--duration {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b757b;
+}
