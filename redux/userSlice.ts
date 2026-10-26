@@ -22,14 +22,12 @@ const userSlice = createSlice({
   reducers: {
     setUser: (
       state,
-      action: PayloadAction<{ uid: string; email: string | null }>
+      action: PayloadAction<{ uid: string; email: string | null; plan: Plan }>
     ) => {
       state.uid = action.payload.uid;
       state.email = action.payload.email;
+      state.plan = action.payload.plan;
       state.isLoading = false;
-    },
-    setPlan: (state, action: PayloadAction<Plan>) => {
-      state.plan = action.payload;
     },
     logoutUser: (state) => {
       state.uid = null;
@@ -40,5 +38,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setPlan, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
