@@ -3,14 +3,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "firebase/auth";
 import { AiOutlineHome, AiOutlineSearch } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { RiBallPenLine } from "react-icons/ri";
-import { FiHelpCircle, FiLogIn, FiSettings } from "react-icons/fi";
+import { FiHelpCircle, FiLogIn, FiLogOut, FiSettings } from "react-icons/fi";
 import logo from "@/assets/logo.png";
+import { auth } from "@/firebase/init";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { openModal } from "@/redux/modalSlice";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+
+  function handleAuthClick() {
+    if (user.uid) {
+      signOut(auth);
+    } else {
+      dispatch(openModal());
+    }
+  }
 
   return (
     <div className="sidebar">
@@ -71,12 +85,14 @@ export default function Sidebar() {
             </div>
             <div className="sidebar__link--text">Help & Support</div>
           </div>
-          <div className="sidebar__link--wrapper">
+          <div className="sidebar__link--wrapper" onClick={handleAuthClick}>
             <div className="sidebar__link--line"></div>
             <div className="sidebar__icon--wrapper">
-              <FiLogIn />
+              {user.uid ? <FiLogOut /> : <FiLogIn />}
             </div>
-            <div className="sidebar__link--text">Login</div>
+            <div className="sidebar__link--text">
+              {user.uid ? "Logout" : "Login"}
+            </div>
           </div>
         </div>
       </div>
