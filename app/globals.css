@@ -1884,3 +1884,54 @@ input {
     height: 100vh;
   }
 }
+
+/* RESPONSIVE CHOOSE PLAN */
+@media (max-width: 768px) {
+  .plan__header--wrapper {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .plan__title {
+    font-size: 26px;
+    margin-bottom: 32px;
+  }
+
+  .plan__sub--title {
+    font-size: 16px;
+  }
+
+  .plan__features--wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .plan__card--title-main {
+    font-size: 24px;
+  }
+
+  .plan__card--title {
+    font-size: 16px;
+  }
+
+  .plan__card--price {
+    font-size: 20px;
+  }
+
+  .plan__card--text {
+    font-size: 12px;
+  }
+
+  .accordion__title {
+    font-size: 20px;
+  }
+
+  .accordion__body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn.plan__btn {
+    width: 100%;
+  }
+}
