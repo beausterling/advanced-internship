@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
@@ -9,11 +9,16 @@ import { HiOutlineLightBulb, HiOutlineMicrophone } from "react-icons/hi";
 import { VscBook } from "react-icons/vsc";
 import { Book } from "@/types/book";
 import Skeleton from "@/components/Skeleton";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { openModal } from "@/redux/modalSlice";
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     async function getBook() {
@@ -27,6 +32,16 @@ export default function BookPage() {
     }
     getBook();
   }, [id]);
+
+  function handleReadOrListen() {
+    if (!user.uid) {
+      dispatch(openModal());
+    } else if (book?.subscriptionRequired && user.plan === "basic") {
+      router.push("/choose-plan");
+    } else {
+      router.push(`/player/${id}`);
+    }
+  }
 
   if (loading) {
     return (
@@ -72,7 +87,12 @@ export default function BookPage() {
       <div className="row">
         <div className="inner__wrapper">
           <div className="inner__book">
-            <div className="inner-book__title">{book.title}</div>
+            <div className="inner-book__title">
+              {book.title}
+              {book.subscriptionRequired &&
+                user.plan === "basic" &&
+                " (Premium)"}
+            </div>
             <div className="inner-book__author">{book.author}</div>
             <div className="inner-book__sub--title">{book.subTitle}</div>
             <div className="inner-book__wrapper">
@@ -92,11 +112,17 @@ export default function BookPage() {
               </div>
             </div>
             <div className="inner-book__read--btn-wrapper">
-              <button className="inner-book__read--btn">
+              <button
+                className="inner-book__read--btn"
+                onClick={handleReadOrListen}
+              >
                 <VscBook className="inner-book__read--icon" />
                 Read
               </button>
-              <button className="inner-book__read--btn">
+              <button
+                className="inner-book__read--btn"
+                onClick={handleReadOrListen}
+              >
                 <HiOutlineMicrophone className="inner-book__read--icon" />
                 Listen
               </button>
