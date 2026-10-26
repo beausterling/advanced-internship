@@ -1351,3 +1351,53 @@ input {
   width: 300px;
   height: 300px;
 }
+
+/* PLAYER */
+.audio__book--summary {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 24px 120px;
+}
+
+.audio__book--summary-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #032b41;
+  line-height: 1.5;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #e1e7ea;
+}
+
+.audio__book--summary-text {
+  white-space: pre-line;
+  line-height: 1.4;
+  color: #032b41;
+}
+
+/* LOGGED OUT */
+.settings__login--wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.settings__login--wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.settings__login--text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #032b41;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.btn.settings__login--btn {
+  width: 180px;
+}
