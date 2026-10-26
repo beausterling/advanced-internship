@@ -8,23 +8,64 @@ import { BsBookmark } from "react-icons/bs";
 import { HiOutlineLightBulb, HiOutlineMicrophone } from "react-icons/hi";
 import { VscBook } from "react-icons/vsc";
 import { Book } from "@/types/book";
+import Skeleton from "@/components/Skeleton";
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getBook() {
       const res = await fetch(
-        `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
+        `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
       );
-      const data = await res.json();
-      setBook(data);
+      // the api sends back an empty body when the id doesn't exist
+      const text = await res.text();
+      setBook(text ? JSON.parse(text) : null);
+      setLoading(false);
     }
     getBook();
   }, [id]);
 
-  if (!book) return null;
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="inner__wrapper">
+            <div className="inner__book">
+              <Skeleton width="70%" height="40px" className="skeleton__line" />
+              <Skeleton width="30%" height="24px" className="skeleton__line" />
+              <Skeleton width="60%" height="24px" className="skeleton__line" />
+              <Skeleton height="96px" className="skeleton__line" />
+              <Skeleton
+                width="300px"
+                height="48px"
+                className="skeleton__line"
+              />
+              <Skeleton width="50%" height="24px" className="skeleton__line" />
+              <Skeleton height="200px" />
+            </div>
+            <Skeleton
+              width="300px"
+              height="300px"
+              className="inner-book__img--mask"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!book) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="inner-book__title">Book not found</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
