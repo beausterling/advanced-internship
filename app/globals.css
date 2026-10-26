@@ -1848,3 +1848,39 @@ input {
     width: 100%;
   }
 }
+
+/* RESPONSIVE PLAYER */
+.audio__wrapper {
+  z-index: 998;
+}
+
+@media (max-width: 768px) {
+  .audio__wrapper {
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    height: 180px;
+    padding: 16px 24px;
+  }
+
+  .audio__wrapper > div {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .audio__book--summary {
+    padding-bottom: 220px;
+  }
+
+  .audio__book--summary-title {
+    font-size: 20px;
+  }
+
+  .audio__book--summary-text {
+    font-size: 14px;
+  }
+
+  .sidebar--player {
+    height: 100vh;
+  }
+}
