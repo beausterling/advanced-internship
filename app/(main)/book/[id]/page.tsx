@@ -4,10 +4,12 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { HiOutlineLightBulb, HiOutlineMicrophone } from "react-icons/hi";
 import { VscBook } from "react-icons/vsc";
 import { Book } from "@/types/book";
+import { db } from "@/firebase/init";
 import Skeleton from "@/components/Skeleton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
@@ -19,6 +21,7 @@ export default function BookPage() {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     async function getBook() {
@@ -32,6 +35,32 @@ export default function BookPage() {
     }
     getBook();
   }, [id]);
+
+  useEffect(() => {
+    if (!user.uid) return;
+    getDoc(doc(db, "users", user.uid, "library", id))
+      .then((snapshot) => setSaved(snapshot.exists()))
+      .catch((error) => console.log(error));
+  }, [user.uid, id]);
+
+  async function handleLibrary() {
+    if (!user.uid) {
+      dispatch(openModal());
+      return;
+    }
+    const bookRef = doc(db, "users", user.uid, "library", id);
+    try {
+      if (saved) {
+        await deleteDoc(bookRef);
+        setSaved(false);
+      } else {
+        await setDoc(bookRef, book);
+        setSaved(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function handleReadOrListen() {
     if (!user.uid) {
@@ -127,9 +156,18 @@ export default function BookPage() {
                 Listen
               </button>
             </div>
-            <div className="inner-book__bookmark">
-              <BsBookmark className="inner-book__bookmark--icon" />
-              Add title to My Library
+            <div className="inner-book__bookmark" onClick={handleLibrary}>
+              {user.uid && saved ? (
+                <>
+                  <BsBookmarkFill className="inner-book__bookmark--icon" />
+                  Saved in My Library
+                </>
+              ) : (
+                <>
+                  <BsBookmark className="inner-book__bookmark--icon" />
+                  Add title to My Library
+                </>
+              )}
             </div>
             <div className="inner-book__secondary--title">
               What&apos;s it about?
