@@ -6,6 +6,7 @@ import { Book } from "@/types/book";
 export default function BookCard({ book }: { book: Book }) {
   return (
     <Link href={`/book/${book.id}`} className="book__card">
+      {book.subscriptionRequired && <div className="book__pill">Premium</div>}
       <figure className="book__card--img-mask">
         <Image
           className="book__card--img"
