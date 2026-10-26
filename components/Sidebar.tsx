@@ -38,7 +38,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         className={`sidebar__overlay ${isOpen ? "" : "sidebar__overlay--hidden"}`}
         onClick={onClose}
       ></div>
-      <div className={`sidebar ${isOpen ? "sidebar--opened" : ""}`}>
+      <div
+        className={`sidebar ${isOpen ? "sidebar--opened" : ""} ${
+          pathname.startsWith("/player") ? "sidebar--player" : ""
+        }`}
+      >
         <div className="sidebar__logo">
           <Image src={logo} alt="logo" />
         </div>
