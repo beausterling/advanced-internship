@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import { FaHandshake } from "react-icons/fa";
 import { RiPlantFill } from "react-icons/ri";
 import pricingTop from "@/assets/pricing-top.png";
 
 export default function ChoosePlan() {
+  const [selectedPlan, setSelectedPlan] = useState<"yearly" | "monthly">(
+    "yearly",
+  );
+
   return (
     <div className="plan">
       <div className="plan__header--wrapper">
@@ -48,6 +53,56 @@ export default function ChoosePlan() {
               <div className="plan__features--text">
                 <b>Precise recommendations</b> collections curated by experts
               </div>
+            </div>
+          </div>
+          <div className="plan__card--title-main">
+            Choose the plan that fits you
+          </div>
+          <div
+            className={`plan__card ${
+              selectedPlan === "yearly" ? "plan__card--active" : ""
+            }`}
+            onClick={() => setSelectedPlan("yearly")}
+          >
+            <div className="plan__card--circle">
+              {selectedPlan === "yearly" && (
+                <div className="plan__card--dot"></div>
+              )}
+            </div>
+            <div>
+              <div className="plan__card--title">Premium Plus Yearly</div>
+              <div className="plan__card--price">$99.99/year</div>
+              <div className="plan__card--text">7-day free trial included</div>
+            </div>
+          </div>
+          <div className="plan__card--separator">or</div>
+          <div
+            className={`plan__card ${
+              selectedPlan === "monthly" ? "plan__card--active" : ""
+            }`}
+            onClick={() => setSelectedPlan("monthly")}
+          >
+            <div className="plan__card--circle">
+              {selectedPlan === "monthly" && (
+                <div className="plan__card--dot"></div>
+              )}
+            </div>
+            <div>
+              <div className="plan__card--title">Premium Monthly</div>
+              <div className="plan__card--price">$9.99/month</div>
+              <div className="plan__card--text">No trial included</div>
+            </div>
+          </div>
+          <div className="plan__card--cta">
+            <button className="btn plan__btn">
+              {selectedPlan === "yearly"
+                ? "Start your free 7-day trial"
+                : "Start your first month"}
+            </button>
+            <div className="plan__disclaimer">
+              {selectedPlan === "yearly"
+                ? "Cancel your trial at any time before it ends, and you won’t be charged."
+                : "30-day money back guarantee, no questions asked."}
             </div>
           </div>
         </div>
