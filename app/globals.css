@@ -1491,3 +1491,22 @@ input {
 .sidebar--player {
   height: calc(100vh - 80px);
 }
+
+.audio__progress--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.audio__time {
+  color: #fff;
+  font-size: 14px;
+}
+
+.audio__progress--bar {
+  width: 100%;
+  max-width: 300px;
+  cursor: pointer;
+  accent-color: #2bd97c;
+}
