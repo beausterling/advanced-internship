@@ -7,6 +7,7 @@ import { FaHandshake } from "react-icons/fa";
 import { RiPlantFill } from "react-icons/ri";
 import pricingTop from "@/assets/pricing-top.png";
 import Accordion from "@/components/Accordion";
+import Footer from "@/components/Footer";
 
 export default function ChoosePlan() {
   const [selectedPlan, setSelectedPlan] = useState<"yearly" | "monthly">(
@@ -109,6 +110,7 @@ export default function ChoosePlan() {
           <Accordion />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
