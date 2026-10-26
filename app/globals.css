@@ -1105,3 +1105,74 @@ input {
   font-weight: 500;
   color: #032b41;
 }
+
+.for-you__books {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 32px;
+}
+
+.book__card {
+  position: relative;
+  min-width: 200px;
+  max-width: 200px;
+  padding: 32px 12px 12px;
+  border-radius: 4px;
+  scroll-snap-align: start;
+}
+
+.book__card:hover {
+  background-color: #f1f6f4;
+}
+
+.book__card--img-mask {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.book__card--img {
+  width: 172px;
+  height: 172px;
+}
+
+.book__card--title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #032b41;
+  margin-bottom: 8px;
+}
+
+.book__card--author {
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b757b;
+  margin-bottom: 8px;
+}
+
+.book__card--sub-title {
+  font-size: 14px;
+  color: #394547;
+  margin-bottom: 8px;
+}
+
+.book__card--details-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.book__card--details {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b757b;
+}
+
+.book__card--details-icon {
+  width: 16px;
+  height: 16px;
+}

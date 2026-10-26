@@ -5,19 +5,24 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { Book } from "@/types/book";
+import BookCard from "@/components/BookCard";
 
 const API_URL = "https://us-central1-summaristt.cloudfunctions.net/getBooks";
 
 export default function ForYou() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    async function getSelectedBook() {
-      const res = await fetch(`${API_URL}?status=selected`);
-      const data = await res.json();
-      setSelectedBook(data[0]);
+    async function getBooks() {
+      const selectedRes = await fetch(`${API_URL}?status=selected`);
+      const selectedData = await selectedRes.json();
+      setSelectedBook(selectedData[0]);
+
+      const recommendedRes = await fetch(`${API_URL}?status=recommended`);
+      setRecommendedBooks(await recommendedRes.json());
     }
-    getSelectedBook();
+    getBooks();
   }, []);
 
   return (
@@ -56,6 +61,13 @@ export default function ForYou() {
             </div>
           </Link>
         )}
+        <div className="for-you__title">Recommended For You</div>
+        <div className="for-you__sub--title">We think you&apos;ll like these</div>
+        <div className="for-you__books">
+          {recommendedBooks.map((book) => (
+            <BookCard book={book} key={book.id} />
+          ))}
+        </div>
       </div>
     </div>
   );
