@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { AiOutlineClose } from "react-icons/ai";
@@ -30,6 +32,8 @@ function getErrorMessage(error: unknown) {
     case "auth/invalid-credential":
     case "auth/wrong-password":
       return "Incorrect email or password";
+    case "auth/popup-closed-by-user":
+      return "";
     default:
       return "Something went wrong, please try again";
   }
@@ -77,6 +81,16 @@ export default function AuthModal() {
     setLoading(false);
   }
 
+  async function googleLogin() {
+    setError("");
+    try {
+      await signInWithPopup(auth, new GoogleAuthProvider());
+      dispatch(closeModal());
+    } catch (err) {
+      setError(getErrorMessage(err));
+    }
+  }
+
   if (!isOpen) return null;
 
   return (
@@ -103,7 +117,7 @@ export default function AuthModal() {
               </div>
             </>
           )}
-          <button className="btn google__btn--wrapper">
+          <button className="btn google__btn--wrapper" onClick={googleLogin}>
             <figure className="google__icon--mask">
               <Image src={googleIcon} alt="google" />
             </figure>
