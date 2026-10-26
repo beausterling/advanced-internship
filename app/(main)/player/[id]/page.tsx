@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import loginImage from "@/assets/login.png";
 import { Book } from "@/types/book";
 import AudioPlayer from "@/components/AudioPlayer";
+import Skeleton from "@/components/Skeleton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
 
@@ -26,7 +27,20 @@ export default function PlayerPage() {
     getBook();
   }, [id]);
 
-  if (!book) return null;
+  if (!book || user.isLoading) {
+    return (
+      <div className="audio__book--summary">
+        <Skeleton
+          width="60%"
+          height="36px"
+          className="audio__book--summary-title"
+        />
+        {new Array(8).fill(0).map((_, index) => (
+          <Skeleton height="20px" className="skeleton__line" key={index} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
