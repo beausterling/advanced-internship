@@ -2,17 +2,52 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { createCheckoutSession } from "@invertase/firestore-stripe-payments";
 import { AiFillFileText } from "react-icons/ai";
 import { FaHandshake } from "react-icons/fa";
 import { RiPlantFill } from "react-icons/ri";
 import pricingTop from "@/assets/pricing-top.png";
 import Accordion from "@/components/Accordion";
 import Footer from "@/components/Footer";
+import { payments } from "@/firebase/stripe";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { openModal } from "@/redux/modalSlice";
 
 export default function ChoosePlan() {
   const [selectedPlan, setSelectedPlan] = useState<"yearly" | "monthly">(
     "yearly",
   );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  async function handleCheckout() {
+    if (!user.uid) {
+      dispatch(openModal());
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const checkoutOptions = {
+        price:
+          selectedPlan === "yearly"
+            ? (process.env.NEXT_PUBLIC_STRIPE_PRICE_YEARLY as string)
+            : (process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY as string),
+        success_url: `${window.location.origin}/settings`,
+        cancel_url: window.location.href,
+        // the extension adds the free trial when this is set
+        ...(selectedPlan === "yearly" && { trial_period_days: 7 }),
+      };
+      const session = await createCheckoutSession(payments, checkoutOptions);
+      window.location.assign(session.url);
+    } catch (err) {
+      console.log(err);
+      setError("Something went wrong, please try again");
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="plan">
@@ -96,7 +131,12 @@ export default function ChoosePlan() {
             </div>
           </div>
           <div className="plan__card--cta">
-            <button className="btn plan__btn">
+            {error && <div className="auth__error">{error}</div>}
+            <button
+              className="btn plan__btn"
+              onClick={handleCheckout}
+              disabled={loading}
+            >
               {selectedPlan === "yearly"
                 ? "Start your free 7-day trial"
                 : "Start your first month"}
