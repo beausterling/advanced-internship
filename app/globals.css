@@ -1768,3 +1768,170 @@ input {
 .settings__skeleton--gap {
   margin-bottom: 56px;
 }
+
+/* RESPONSIVE FOR YOU */
+@media (max-width: 1200px) {
+  .selected__book,
+  .selected__book--skeleton {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .selected__book {
+    flex-direction: column;
+  }
+
+  .selected__book--sub-title,
+  .selected__book--content {
+    width: 100%;
+  }
+
+  .selected__book--line {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .selected__book {
+    padding: 16px;
+  }
+}
+
+/* RESPONSIVE BOOK PAGE */
+@media (max-width: 992px) {
+  .inner__wrapper {
+    flex-direction: column-reverse;
+    gap: 32px;
+  }
+
+  .inner-book__img--mask {
+    justify-content: center;
+    min-width: 0;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner-book__title {
+    font-size: 24px;
+  }
+
+  .inner-book__sub--title {
+    font-size: 18px;
+  }
+
+  .inner-book__author,
+  .inner-book__tag,
+  .inner-book__book--description,
+  .inner-book__author--description {
+    font-size: 14px;
+  }
+
+  .inner-book__bookmark {
+    font-size: 16px;
+  }
+
+  .inner-book__img {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 576px) {
+  .inner-book__description {
+    width: 100%;
+  }
+
+  .inner-book__read--btn {
+    width: 100%;
+  }
+}
+
+/* RESPONSIVE PLAYER */
+.audio__wrapper {
+  z-index: 998;
+}
+
+@media (max-width: 768px) {
+  .audio__wrapper {
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    height: 180px;
+    padding: 16px 24px;
+  }
+
+  .audio__wrapper > div {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .audio__book--summary {
+    padding-bottom: 220px;
+  }
+
+  .audio__book--summary-title {
+    font-size: 20px;
+  }
+
+  .audio__book--summary-text {
+    font-size: 14px;
+  }
+
+  .sidebar--player {
+    height: 100vh;
+  }
+}
+
+/* RESPONSIVE CHOOSE PLAN */
+@media (max-width: 768px) {
+  .plan__header--wrapper {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .plan__title {
+    font-size: 26px;
+    margin-bottom: 32px;
+  }
+
+  .plan__sub--title {
+    font-size: 16px;
+  }
+
+  .plan__features--wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .plan__card--title-main {
+    font-size: 24px;
+  }
+
+  .plan__card--title {
+    font-size: 16px;
+  }
+
+  .plan__card--price {
+    font-size: 20px;
+  }
+
+  .plan__card--text {
+    font-size: 12px;
+  }
+
+  .accordion__title {
+    font-size: 20px;
+  }
+
+  .accordion__body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn.plan__btn {
+    width: 100%;
+  }
+}

@@ -1,7 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { BsStarFill } from "react-icons/bs";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
 
 const reviews = [
@@ -51,6 +52,16 @@ const reviews = [
 
 export default function Reviews() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const user = useAppSelector((state) => state.user);
+
+  function handleLogin() {
+    if (user.uid) {
+      router.push("/for-you");
+    } else {
+      dispatch(openModal());
+    }
+  }
 
   return (
     <section id="reviews">
@@ -77,7 +88,7 @@ export default function Reviews() {
           <div className="reviews__btn--wrapper">
             <button
               className="btn home__cta--btn"
-              onClick={() => dispatch(openModal())}
+              onClick={handleLogin}
             >
               Login
             </button>
