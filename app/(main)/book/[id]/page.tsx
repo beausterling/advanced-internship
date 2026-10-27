@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiOutlineStar } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { HiOutlineLightBulb, HiOutlineMicrophone } from "react-icons/hi";
@@ -11,6 +11,7 @@ import { VscBook } from "react-icons/vsc";
 import { Book } from "@/types/book";
 import { db } from "@/firebase/init";
 import Skeleton from "@/components/Skeleton";
+import BookDuration from "@/components/BookDuration";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { openModal } from "@/redux/modalSlice";
 
@@ -129,6 +130,10 @@ export default function BookPage() {
                 <div className="inner-book__description">
                   <AiOutlineStar className="inner-book__icon" />
                   {book.averageRating} ({book.totalRating} ratings)
+                </div>
+                <div className="inner-book__description">
+                  <AiOutlineClockCircle className="inner-book__icon" />
+                  <BookDuration audioLink={book.audioLink} />
                 </div>
                 <div className="inner-book__description">
                   <HiOutlineMicrophone className="inner-book__icon" />

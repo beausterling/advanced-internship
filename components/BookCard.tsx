@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineStar } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 import { Book } from "@/types/book";
+import BookDuration from "./BookDuration";
 
 export default function BookCard({ book }: { book: Book }) {
   return (
@@ -20,6 +21,10 @@ export default function BookCard({ book }: { book: Book }) {
       <div className="book__card--author">{book.author}</div>
       <div className="book__card--sub-title">{book.subTitle}</div>
       <div className="book__card--details-wrapper">
+        <div className="book__card--details">
+          <AiOutlineClockCircle className="book__card--details-icon" />
+          <BookDuration audioLink={book.audioLink} />
+        </div>
         <div className="book__card--details">
           <AiOutlineStar className="book__card--details-icon" />
           {book.averageRating}

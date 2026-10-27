@@ -3,8 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineClockCircle,
+  AiOutlineClose,
+  AiOutlineMenu,
+  AiOutlineSearch,
+} from "react-icons/ai";
 import { Book } from "@/types/book";
+import BookDuration from "./BookDuration";
 
 export default function SearchBar({
   onMenuClick,
@@ -101,6 +107,10 @@ export default function SearchBar({
                   <div>
                     <div className="search__book--title">{book.title}</div>
                     <div className="search__book--author">{book.author}</div>
+                    <div className="search__book--duration">
+                      <AiOutlineClockCircle />
+                      <BookDuration audioLink={book.audioLink} />
+                    </div>
                   </div>
                 </Link>
               ))
