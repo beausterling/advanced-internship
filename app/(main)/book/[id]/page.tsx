@@ -64,6 +64,7 @@ export default function BookPage() {
   }
 
   function handleReadOrListen() {
+    if (user.isLoading) return;
     if (!user.uid) {
       dispatch(openModal());
     } else if (book?.subscriptionRequired && user.plan === "basic") {
