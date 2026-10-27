@@ -1199,3 +1199,155 @@ input {
   max-width: calc(100% / 3 * 2);
   margin-bottom: 24px;
 }
+
+/* BOOK PAGE */
+.inner__wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.inner__book {
+  width: 100%;
+}
+
+.inner-book__title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.inner-book__author {
+  font-weight: 600;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.inner-book__sub--title {
+  font-size: 20px;
+  font-weight: 300;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.inner-book__wrapper {
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-top: 1px solid #e1e7ea;
+  border-bottom: 1px solid #e1e7ea;
+}
+
+.inner-book__description--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 12px;
+  max-width: 400px;
+}
+
+.inner-book__description {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  font-size: 14px;
+  font-weight: 500;
+  color: #032b41;
+}
+
+.inner-book__icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+}
+
+.inner-book__read--btn-wrapper {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.inner-book__read--btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 144px;
+  height: 48px;
+  background-color: #032b41;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: opacity 200ms;
+}
+
+.inner-book__read--btn:hover {
+  opacity: 0.8;
+}
+
+.inner-book__read--icon {
+  width: 24px;
+  height: 24px;
+}
+
+.inner-book__bookmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-bottom: 40px;
+  color: #0365f2;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.inner-book__bookmark:hover {
+  color: #044298;
+}
+
+.inner-book__bookmark--icon {
+  width: 20px;
+  height: 20px;
+}
+
+.inner-book__secondary--title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.inner-book__tags--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.inner-book__tag {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  background-color: #f1f6f4;
+  color: #032b41;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+
+.inner-book__book--description,
+.inner-book__author--description {
+  color: #032b41;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.inner-book__img--mask {
+  display: flex;
+  min-width: 300px;
+}
+
+.inner-book__img {
+  width: 300px;
+  height: 300px;
+}
