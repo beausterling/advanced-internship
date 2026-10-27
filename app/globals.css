@@ -1008,3 +1008,194 @@ input {
     max-width: none;
   }
 }
+
+/* FOR YOU */
+.for-you__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.for-you__sub--title {
+  font-weight: 300;
+  color: #394547;
+  margin-bottom: 16px;
+}
+
+.selected__book {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  width: calc(100% / 3 * 2);
+  padding: 24px;
+  margin-bottom: 24px;
+  background-color: #fbefd6;
+  border-radius: 4px;
+}
+
+.selected__book--sub-title {
+  width: 40%;
+  color: #032b41;
+}
+
+.selected__book--line {
+  width: 1px;
+  background-color: #bac8ce;
+}
+
+.selected__book--content {
+  display: flex;
+  gap: 16px;
+  width: 60%;
+}
+
+.selected__book--img-mask {
+  display: flex;
+  min-width: 140px;
+}
+
+.selected__book--img {
+  width: 140px;
+  height: 140px;
+}
+
+.selected__book--text {
+  width: 100%;
+}
+
+.selected__book--title {
+  font-weight: 600;
+  color: #032b41;
+  margin-bottom: 8px;
+}
+
+.selected__book--author {
+  font-size: 14px;
+  color: #394547;
+  margin-bottom: 16px;
+}
+
+.selected__book--duration-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected__book--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.selected__book--icon svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+  color: #fff;
+}
+
+.selected__book--duration {
+  font-size: 14px;
+  font-weight: 500;
+  color: #032b41;
+}
+
+.for-you__books {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 32px;
+}
+
+.book__card {
+  position: relative;
+  min-width: 200px;
+  max-width: 200px;
+  padding: 32px 12px 12px;
+  border-radius: 4px;
+  scroll-snap-align: start;
+}
+
+.book__card:hover {
+  background-color: #f1f6f4;
+}
+
+.book__card--img-mask {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.book__card--img {
+  width: 172px;
+  height: 172px;
+}
+
+.book__card--title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #032b41;
+  margin-bottom: 8px;
+}
+
+.book__card--author {
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b757b;
+  margin-bottom: 8px;
+}
+
+.book__card--sub-title {
+  font-size: 14px;
+  color: #394547;
+  margin-bottom: 8px;
+}
+
+.book__card--details-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.book__card--details {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b757b;
+}
+
+.book__card--details-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.book__pill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 8px;
+  background-color: #032b41;
+  color: #fff;
+  font-size: 10px;
+  border-radius: 20px;
+}
+
+.skeleton__line {
+  margin-bottom: 8px;
+}
+
+.selected__book--skeleton {
+  max-width: calc(100% / 3 * 2);
+  margin-bottom: 24px;
+}
